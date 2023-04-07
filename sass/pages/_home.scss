@@ -9,6 +9,13 @@ main {
   gap: 1rem;
 }
 
+.no-recipes-found-message {
+  padding: 3rem 0;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
 .recipes-section {
   @include fluid-grid(
     $grid-column-gap: 2rem, 

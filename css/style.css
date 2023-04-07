@@ -76,7 +76,7 @@ body {
   transition: transform 0.2s ease-in-out;
 }
 .filter-tag:hover, .filter-tag:focus {
-  transform: scale(108%);
+  transform: scale(1.08);
 }
 .filter-tag i {
   font-size: 1.2rem;
@@ -149,7 +149,7 @@ body {
   box-sizing: border-box;
   width: 100%;
   padding: 1.4rem;
-  padding-right: 4rem;
+  padding-right: 5rem;
   background-color: #E7E7E7;
   border: unset;
   border-radius: 5px;
@@ -175,7 +175,7 @@ body {
   transition: transform 0.2s ease-in-out;
 }
 .banner a:hover, .banner a:focus {
-  transform: scale(104%);
+  transform: scale(1.04);
 }
 
 main {
@@ -187,6 +187,13 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.no-recipes-found-message {
+  padding: 3rem 0;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 3rem;
 }
 
 .recipes-section {
