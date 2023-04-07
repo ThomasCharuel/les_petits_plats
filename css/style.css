@@ -60,6 +60,7 @@ body {
 .recipe-card {
   display: flex;
   flex-direction: column;
+  min-height: 20rem;
   height: 100%;
 }
 .recipe-card__thumbnail {
@@ -69,7 +70,6 @@ body {
   background-color: #C7BEBE;
 }
 .recipe-card__info-wrapper {
-  height: 50%;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: #E7E7E7;
@@ -114,11 +114,10 @@ body {
 }
 
 .recipes-section {
-  margin: 10%;
+  margin: 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(max(18rem, (100% - 4rem) / 3), 1fr));
   gap: 2rem 2rem;
-  grid-template-rows: 20rem;
 }
 
 /*# sourceMappingURL=style.css.map */

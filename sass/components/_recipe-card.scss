@@ -1,6 +1,7 @@
 .recipe-card {
   display: flex;
   flex-direction: column;
+  min-height: 20rem;
   height: 100%;
 
   &__thumbnail {
@@ -11,7 +12,6 @@
   }
 
   &__info-wrapper {
-    height: 50%;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     background-color: $color-light-grey;
