@@ -194,6 +194,13 @@ main {
   text-align: center;
   font-size: 2rem;
   line-height: 3rem;
+  display: none;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.no-recipes-found-message.show {
+  display: block;
+  opacity: 1;
 }
 
 .recipes-section {
