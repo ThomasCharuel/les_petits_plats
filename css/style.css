@@ -53,6 +53,11 @@ table {
 }
 
 body {
+  box-sizing: border-box;
+  margin: unset;
+}
+
+body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
 }
@@ -135,6 +140,29 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 0.8rem;
   width: 40%;
+}
+
+.search-bar {
+  position: relative;
+}
+.search-bar__input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1.4rem;
+  padding-right: 4rem;
+  background-color: #E7E7E7;
+  border: unset;
+  border-radius: 5px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+.search-bar__label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1.4rem;
+  font-size: 1.8rem;
 }
 
 .banner {

@@ -1,0 +1,24 @@
+.search-bar {
+  position: relative;
+
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.4rem;
+    padding-right: 4rem;
+    background-color: $color-light-grey;
+    border: unset;
+    border-radius: 5px;
+    font-family: $font-family-primary;
+    font-weight: $font-weight-regular;
+    font-size: 1.2rem;
+  }
+
+  &__label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1.4rem;
+    font-size: 1.8rem;
+  }
+}
