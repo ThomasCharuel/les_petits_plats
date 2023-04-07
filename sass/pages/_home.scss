@@ -1,6 +1,15 @@
-.recipes-section {
+main {
   margin: 2rem;
-  
+}
+
+.filters-tags-section {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.recipes-section {
   @include fluid-grid(
     $grid-column-gap: 2rem, 
     $grid-item-min-width: 18rem,

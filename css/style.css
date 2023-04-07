@@ -57,6 +57,35 @@ body {
   font-weight: 400;
 }
 
+.filter-tag {
+  color: white;
+  cursor: pointer;
+  padding: 0.8rem 1.2rem;
+  border: unset;
+  border-radius: 5px;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+.filter-tag:hover, .filter-tag:focus {
+  transform: scale(108%);
+}
+.filter-tag i {
+  font-size: 1.2rem;
+}
+.filter-tag--ingredient {
+  background-color: #3282F7;
+}
+.filter-tag--appliance {
+  background-color: #68D9A4;
+}
+.filter-tag--ustensils {
+  background-color: #ED6454;
+}
+
 .recipe-card {
   display: flex;
   flex-direction: column;
@@ -113,8 +142,18 @@ body {
   padding: 2rem;
 }
 
-.recipes-section {
+main {
   margin: 2rem;
+}
+
+.filters-tags-section {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.recipes-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(max(18rem, (100% - 4rem) / 3), 1fr));
   gap: 2rem 2rem;

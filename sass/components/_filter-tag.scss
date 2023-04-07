@@ -1,0 +1,36 @@
+.filter-tag {
+  color: white;
+  cursor: pointer;
+  padding: 0.8rem 1.2rem;
+  border: unset;
+  border-radius: 5px;
+
+  font-family: $font-family-primary;
+  font-weight: $font-weight-bold;
+  font-size: 1rem;
+
+  display: flex;
+  gap: 1rem;
+
+  transition: transform 0.2s ease-in-out;
+
+  &:hover, &:focus {
+    transform: scale(108%);
+  }
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &--ingredient {
+    background-color: $color-blue;
+  }
+
+  &--appliance {
+    background-color: $color-green;
+  }
+
+  &--ustensils {
+    background-color: $color-red;
+  }
+}
