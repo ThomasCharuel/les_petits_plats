@@ -1,4 +1,14 @@
 .banner {
   text-align: center;
   padding: 2rem;
+
+  a {
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover, &:focus {
+      transform: scale(104%);
+    }
+  }
 }

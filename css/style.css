@@ -141,6 +141,14 @@ body {
   text-align: center;
   padding: 2rem;
 }
+.banner a {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.banner a:hover, .banner a:focus {
+  transform: scale(104%);
+}
 
 main {
   margin: 2rem;
