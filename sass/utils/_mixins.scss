@@ -1,0 +1,10 @@
+@mixin fluid-grid($grid-column-gap, $grid-item-min-width, $max-grid-column-count){
+  display: grid;
+  
+  $gap-count: $max-grid-column-count - 1;
+  $total-gap-width: $gap-count * $grid-column-gap;
+  $grid-item-max-width: calc((100% - $total-gap-width) / $max-grid-column-count);
+
+  grid-template-columns: repeat(auto-fill, minmax(max($grid-item-min-width, $grid-item-max-width), 1fr));
+  gap: 2rem $grid-column-gap;
+}
