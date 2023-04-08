@@ -95,7 +95,7 @@ body {
   transition: transform 0.2s ease-in-out;
 }
 .filter-tag:hover, .filter-tag:focus {
-  transform: scale(1.08);
+  transform: scale(1.04);
 }
 .filter-tag i {
   font-size: 1.2rem;
@@ -237,7 +237,7 @@ body {
   transition: transform 0.2s ease-in-out;
 }
 .banner a:hover, .banner a:focus {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 main {
