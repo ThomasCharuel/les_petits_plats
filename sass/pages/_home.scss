@@ -9,6 +9,13 @@ main {
   gap: 1rem;
 }
 
+.filters-section {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .no-recipes-found-message {
   padding: 3rem 0;
   text-align: center;

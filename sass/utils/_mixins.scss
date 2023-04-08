@@ -8,3 +8,17 @@
   grid-template-columns: repeat(auto-fill, minmax(max($grid-item-min-width, $grid-item-max-width), 1fr));
   gap: 2rem $grid-column-gap;
 }
+
+@mixin filters-colors {
+  &--ingredient {
+    background-color: $color-blue;
+  }
+
+  &--appliance {
+    background-color: $color-green;
+  }
+
+  &--ustensils {
+    background-color: $color-red;
+  }
+}

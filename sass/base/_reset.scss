@@ -46,7 +46,24 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+button {
+	background-color: unset;
+	color: unset;
+	font-family: unset;
+	font-weight: unset;
+	font-size: unset;
+	border: unset;
+	cursor: unset;
+}
 body {
   box-sizing: border-box;
   margin: unset;
+}
+input {
+	background-color: unset;
+	border: unset;
+	color: unset;
+	font-family: unset;
+	font-size: unset;
+	font-weight: unset;
 }

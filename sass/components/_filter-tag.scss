@@ -7,7 +7,7 @@
 
   font-family: $font-family-primary;
   font-weight: $font-weight-bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
 
   display: flex;
   gap: 1rem;
@@ -22,15 +22,5 @@
     font-size: 1.2rem;
   }
 
-  &--ingredient {
-    background-color: $color-blue;
-  }
-
-  &--appliance {
-    background-color: $color-green;
-  }
-
-  &--ustensils {
-    background-color: $color-red;
-  }
+  @include filters-colors;
 }

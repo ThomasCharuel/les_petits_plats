@@ -52,9 +52,28 @@ table {
   border-spacing: 0;
 }
 
+button {
+  background-color: unset;
+  color: unset;
+  font-family: unset;
+  font-weight: unset;
+  font-size: unset;
+  border: unset;
+  cursor: unset;
+}
+
 body {
   box-sizing: border-box;
   margin: unset;
+}
+
+input {
+  background-color: unset;
+  border: unset;
+  color: unset;
+  font-family: unset;
+  font-size: unset;
+  font-weight: unset;
 }
 
 body {
@@ -70,7 +89,7 @@ body {
   border-radius: 5px;
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
   display: flex;
   gap: 1rem;
   transition: transform 0.2s ease-in-out;
@@ -165,6 +184,49 @@ body {
   font-size: 1.8rem;
 }
 
+.filter {
+  border-radius: 5px;
+  color: #FFFFFF;
+  padding: 1.4rem 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.filter--ingredient {
+  background-color: #3282F7;
+}
+.filter--appliance {
+  background-color: #68D9A4;
+}
+.filter--ustensils {
+  background-color: #ED6454;
+}
+.filter__input-section {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.filter__caret {
+  font-size: 1.4rem;
+  transition: transform 0.2s ease-in-out;
+}
+.filter__toggle-dropdown {
+  font-weight: 700;
+}
+.filter__search-input {
+  display: none;
+  outline: unset;
+  font-weight: 700;
+}
+.filter--active .filter__caret {
+  transform: rotate(-180deg);
+}
+.filter--active .filter__toggle-dropdown {
+  display: none;
+}
+.filter--active .filter__search-input {
+  display: block;
+}
+
 .banner {
   text-align: center;
   padding: 2rem;
@@ -183,6 +245,13 @@ main {
 }
 
 .filters-tags-section {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filters-section {
   margin: 1rem 0;
   display: flex;
   flex-wrap: wrap;

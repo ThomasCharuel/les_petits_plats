@@ -1,0 +1,44 @@
+.filter {
+  border-radius: 5px;
+  color: $color-white;
+  padding: 1.4rem 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  @include filters-colors;
+
+  &__input-section {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  &__caret {
+    font-size: 1.4rem;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &__toggle-dropdown {
+    font-weight: $font-weight-bold;
+  }
+
+  &__search-input {
+    display: none;
+    outline: unset;
+    font-weight: $font-weight-bold;
+  }
+
+  &--active & {
+    &__caret {
+      transform: rotate(-180deg);
+    }
+
+    &__toggle-dropdown {
+      display: none;
+    }
+
+    &__search-input {
+      display: block;
+    }
+  }
+}
