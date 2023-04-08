@@ -1,19 +1,21 @@
 .filter {
-  border-radius: 5px;
+  position: relative;
   color: $color-white;
-  padding: 1.4rem 1rem;
   font-size: 1.1rem;
-  cursor: pointer;
-
-  @include filters-colors;
 
   &__input-section {
+    @include filters-colors;
+    border-radius: 5px;
+    padding: 1.4rem 1rem;
+    cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1.1rem;
   }
 
   &__caret {
+    padding-top: 3px;
     font-size: 1.4rem;
     transition: transform 0.2s ease-in-out;
   }
@@ -23,12 +25,59 @@
   }
 
   &__search-input {
+    flex: 1;
     display: none;
     outline: unset;
     font-weight: $font-weight-bold;
+    &::placeholder{
+      color: unset;
+      opacity: 0.5;
+    }
+  }
+
+  // Define results grid parameters
+  $results-grid-column-gap: 4rem;
+  $results-column-count: 3;
+  $results-grid-column-size: 12rem;
+
+  &__results-section {
+    @include filters-colors;
+    display: none;
+    position: absolute;
+    z-index: 200;
+    border-radius: 0 0 5px 5px;
+    width: 100%;
+
+    &-list {
+      padding: 0 1rem 1rem;
+      display: grid;
+      grid-template-columns: repeat($results-column-count, 1fr);
+      gap: 0.4rem $results-grid-column-gap;
+
+      &-item {
+        display: inline-block;
+      }
+    }
+
+    &-result {
+      cursor: pointer;
+      display: inline-block;
+      font-weight: $font-weight-regular;
+
+      &:hover, &:focus {
+        font-weight: $font-weight-bold;
+      }
+    }
   }
 
   &--active & {
+    &__input-section {
+      border-radius: 5px 5px 0 0;
+
+      width: $results-column-count * $results-grid-column-size
+        + ($results-column-count - 1) * $results-grid-column-gap;
+    }
+
     &__caret {
       transform: rotate(-180deg);
     }
@@ -38,6 +87,10 @@
     }
 
     &__search-input {
+      display: block;
+    }
+
+    &__results-section {
       display: block;
     }
   }

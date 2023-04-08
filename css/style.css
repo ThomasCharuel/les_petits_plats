@@ -185,27 +185,30 @@ body {
 }
 
 .filter {
-  border-radius: 5px;
+  position: relative;
   color: #FFFFFF;
-  padding: 1.4rem 1rem;
   font-size: 1.1rem;
-  cursor: pointer;
-}
-.filter--ingredient {
-  background-color: #3282F7;
-}
-.filter--appliance {
-  background-color: #68D9A4;
-}
-.filter--ustensils {
-  background-color: #ED6454;
 }
 .filter__input-section {
+  border-radius: 5px;
+  padding: 1.4rem 1rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1.1rem;
 }
+.filter__input-section--ingredient {
+  background-color: #3282F7;
+}
+.filter__input-section--appliance {
+  background-color: #68D9A4;
+}
+.filter__input-section--ustensils {
+  background-color: #ED6454;
+}
 .filter__caret {
+  padding-top: 3px;
   font-size: 1.4rem;
   transition: transform 0.2s ease-in-out;
 }
@@ -213,9 +216,51 @@ body {
   font-weight: 700;
 }
 .filter__search-input {
+  flex: 1;
   display: none;
   outline: unset;
   font-weight: 700;
+}
+.filter__search-input::placeholder {
+  color: unset;
+  opacity: 0.5;
+}
+.filter__results-section {
+  display: none;
+  position: absolute;
+  z-index: 200;
+  border-radius: 0 0 5px 5px;
+  width: 100%;
+}
+.filter__results-section--ingredient {
+  background-color: #3282F7;
+}
+.filter__results-section--appliance {
+  background-color: #68D9A4;
+}
+.filter__results-section--ustensils {
+  background-color: #ED6454;
+}
+.filter__results-section-list {
+  padding: 0 1rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem 4rem;
+}
+.filter__results-section-list-item {
+  display: inline-block;
+}
+.filter__results-section-result {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+}
+.filter__results-section-result:hover, .filter__results-section-result:focus {
+  font-weight: 700;
+}
+.filter--active .filter__input-section {
+  border-radius: 5px 5px 0 0;
+  width: 44rem;
 }
 .filter--active .filter__caret {
   transform: rotate(-180deg);
@@ -224,6 +269,9 @@ body {
   display: none;
 }
 .filter--active .filter__search-input {
+  display: block;
+}
+.filter--active .filter__results-section {
   display: block;
 }
 
