@@ -28,8 +28,6 @@ class App {
   async main() {
     await this.fetchRecipes();
     this.renderRecipes();
-
-    console.log(this.recipes)
   }
 }
 

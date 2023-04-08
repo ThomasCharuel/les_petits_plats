@@ -12,10 +12,13 @@
   }
 
   &__info-wrapper {
+    height: 50%;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     background-color: $color-light-grey;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 
   &__header {
@@ -36,9 +39,11 @@
   &__info {
     display: flex;
     justify-content: space-between;
+    overflow: hidden;
   }
 
   &__ingredients {
+    overflow: scroll;
     margin-right: 3rem;
     font-size: 0.8rem;
 
@@ -52,8 +57,9 @@
   }
 
   &__description {
+    overflow: scroll;
     font-family: $font-family-secondary;
     font-size: 0.8rem;
-    width: 40%;
+    width: 50%;
   }
 }

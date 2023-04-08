@@ -59,6 +59,12 @@ body {
   box-sizing: border-box;
   margin: unset;
 }
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
 input {
 	background-color: unset;
 	border: unset;
