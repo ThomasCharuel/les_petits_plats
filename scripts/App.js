@@ -35,6 +35,7 @@ class App {
     this.filtersTagsWrapper = document.querySelector('.filters-tags-section');
     this.filtersSelectorsWrapper = document.querySelector('.filters-section');
     this.recipesWrapper = document.querySelector('.recipes-section');
+    this.noRecipeMessageWrapper = document.querySelector('.no-recipes-found-message');
   }
 
   async fetchRecipes() {
@@ -68,10 +69,15 @@ class App {
   renderRecipes() {
     this.recipesWrapper.replaceChildren(); // Empty recipes section
 
-    this.recipes.forEach(recipe => {
-      const recipeCard = new RecipeCard(recipe);
-      this.recipesWrapper.appendChild(recipeCard.getHTML());
-    });
+    if (this.recipes.length > 0) {
+      this.noRecipeMessageWrapper.classList.remove('show');
+      this.recipes.forEach(recipe => {
+        const recipeCard = new RecipeCard(recipe);
+        this.recipesWrapper.appendChild(recipeCard.getHTML());
+      });
+    } else {
+      this.noRecipeMessageWrapper.classList.add('show');
+    }
   }
 
   async main() {
