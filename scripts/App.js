@@ -3,6 +3,7 @@ import Recipe from './models/Recipe.js';
 import FilterTag from './models/FilterTag.js';
 import RecipeCard from './templates/RecipeCard.js';
 import FilterTagCard from './templates/FilterTagCard.js';
+import SearchBarCard from './templates/SearchBar.js';
 
 class App {
   constructor() {
@@ -17,6 +18,7 @@ class App {
     ];
 
     // HTML placeholder
+    this.searchBarWrapper = document.querySelector('.search-bar-placeholder');
     this.filtersTagsWrapper = document.querySelector('.filters-tags-section');
     this.recipesWrapper = document.querySelector('.recipes-section');
   }
@@ -24,6 +26,11 @@ class App {
   async fetchRecipes() {
     const recipesData = await this.recipesApi.get();
     this.recipes = recipesData.map(recipe => new Recipe(recipe));
+  }
+
+  renderSearchBar() {
+    const searchBarCard = new SearchBarCard();
+    this.searchBarWrapper.appendChild(searchBarCard.getHTML());
   }
 
   renderFilterTags() {
@@ -45,6 +52,7 @@ class App {
   }
 
   async main() {
+    this.renderSearchBar();
     this.renderFilterTags();
 
     await this.fetchRecipes();
