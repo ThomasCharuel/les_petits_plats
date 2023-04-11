@@ -1,6 +1,7 @@
 export default class FilterTagCard {
-  constructor(filter) {
+  constructor(filter, handleClick) {
     this.filter = filter;
+    this.handleClick = handleClick;
     this.wrapper = document.createElement('li');
   }
 
@@ -12,6 +13,10 @@ export default class FilterTagCard {
         ${this.filter.getName()}<i class="fa-regular fa-circle-xmark"></i>
       </button>
     `;
+
+    // Events handling
+    this.wrapper.querySelector('.filter-tag')
+      .addEventListener('click', () => this.handleClick(this.filter));
 
     return this.wrapper;
   }

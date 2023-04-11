@@ -43,11 +43,16 @@ class App {
     this.searchBarWrapper.appendChild(searchBarCard.getHTML());
   }
 
+  removeFilterTag(filterTag) {
+    this.filterTags = this.filterTags.filter(x => x != filterTag);
+    this.renderFilterTags();
+  }
+
   renderFilterTags() {
     this.filtersTagsWrapper.replaceChildren();
     
-    this.filterTags.forEach(filterTag => {
-      const filterTagCard = new FilterTagCard(filterTag);
+    this.filterTags.forEach((filterTag) => {
+      const filterTagCard = new FilterTagCard(filterTag, (filterTag) => this.removeFilterTag(filterTag));
       this.filtersTagsWrapper.appendChild(filterTagCard.getHTML());
     });
   }
