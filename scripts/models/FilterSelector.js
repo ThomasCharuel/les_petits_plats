@@ -37,11 +37,17 @@ export default class FilterSelector {
   }
 
   setFilterText(filterText) {
-    this.filterText = filterText.toUpperCase();
+    this.filterText = filterText;
   }
 
   getFilteredItems() {
-    return this.items.filter(item => item.includes(this.filterText));
+    // We check if item contains the words in filterText
+    const filterWords = this.filterText.toUpperCase().split(' ');
+
+    return this.items.filter(item =>
+      filterWords.map(filterWord => item.includes(filterWord))
+        .reduce((a, b) => a && b) // Every word must be included
+    );
   }
 
   prepareItems() {
