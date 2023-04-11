@@ -7,7 +7,7 @@ import FilterTagCard from './templates/FilterTagCard.js';
 import SearchBarCard from './templates/SearchBar.js';
 import FilterSelectorCard from './templates/FilterSelectorCard.js';
 
-const FILTER_TYPE = {
+const FILTER = {
   INGREDIENT: { type: 'ingredient', name: 'ingrédient' },
   APPLIANCE: { type: 'appliance', name: 'appareil' },
   USTENSILS: { type: 'ustensils', name: 'ustensile' },
@@ -18,16 +18,11 @@ class App {
     this.recipesApi = new RecipeApi();
     this.recipes = [];
     this.filterTags = [
-      new FilterTag('Coco', FILTER_TYPE.INGREDIENT.type),
-      new FilterTag('Lait de coco', FILTER_TYPE.INGREDIENT.type),
-      new FilterTag('Oven', FILTER_TYPE.APPLIANCE.type),
-      new FilterTag('Coco', FILTER_TYPE.APPLIANCE.type),
-      new FilterTag('Pan', FILTER_TYPE.USTENSILS.type),
-    ];
-    this.filtersSelectors = [
-      new FilterSelector(FILTER_TYPE.INGREDIENT.type, FILTER_TYPE.INGREDIENT.name, ['Coco', 'Lait de coco']),
-      new FilterSelector(FILTER_TYPE.APPLIANCE.type, FILTER_TYPE.APPLIANCE.name, ['Coco', 'Lait de coco']),
-      new FilterSelector(FILTER_TYPE.USTENSILS.type, FILTER_TYPE.USTENSILS.name, ['Coco', 'Lait de coco']),
+      new FilterTag('Coco', FILTER.INGREDIENT.type),
+      new FilterTag('Lait de coco', FILTER.INGREDIENT.type),
+      new FilterTag('Oven', FILTER.APPLIANCE.type),
+      new FilterTag('Coco', FILTER.APPLIANCE.type),
+      new FilterTag('Pan', FILTER.USTENSILS.type),
     ];
 
     // HTML placeholder
@@ -60,7 +55,24 @@ class App {
   renderFiltersSelectors() {
     this.filtersSelectorsWrapper.replaceChildren();
 
-    this.filtersSelectors.forEach(filterSelector => {
+    Object.values(FILTER).forEach((filter) => {
+      let items;
+
+      switch (filter.type)  {
+        case FILTER.INGREDIENT.type:
+          items = this.recipes.map(recipe => recipe.getIngredients().map(ingredient => ingredient.ingredient)).flat();
+          break;
+        case FILTER.APPLIANCE.type:
+          items = this.recipes.map(recipe => recipe.getAppliance());
+          break;
+        case FILTER.USTENSILS.type:
+          items = this.recipes.map(recipe => recipe.getUstensils()).flat();
+          break;
+      }
+      // Deduplicate items
+      const uniqueItems = [...new Set(items)];
+
+      const filterSelector = new FilterSelector(filter.type, filter.name, uniqueItems);
       const filterSelectorCard = new FilterSelectorCard(filterSelector);
       this.filtersSelectorsWrapper.appendChild(filterSelectorCard.getHTML());
     });
@@ -81,11 +93,11 @@ class App {
   }
 
   async main() {
+    await this.fetchRecipes();
+
     this.renderSearchBar();
     this.renderFilterTags();
     this.renderFiltersSelectors();
-
-    await this.fetchRecipes();
     this.renderRecipes();
   }
 }

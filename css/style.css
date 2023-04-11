@@ -256,7 +256,7 @@ body {
   padding: 0 1rem 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.4rem 4rem;
+  gap: 0.4rem 2rem;
 }
 .filter__results-section-list-item {
   display: inline-block;
@@ -265,13 +265,14 @@ body {
   cursor: pointer;
   display: inline-block;
   font-weight: 400;
+  text-align: left;
 }
 .filter__results-section-result:hover, .filter__results-section-result:focus {
   font-weight: 700;
 }
 .filter--active .filter__input-section {
   border-radius: 5px 5px 0 0;
-  width: 44rem;
+  width: 40rem;
 }
 .filter--active .filter__caret {
   transform: rotate(-180deg);

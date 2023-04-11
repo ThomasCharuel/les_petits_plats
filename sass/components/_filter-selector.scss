@@ -36,7 +36,7 @@
   }
 
   // Define results grid parameters
-  $results-grid-column-gap: 4rem;
+  $results-grid-column-gap: 2rem;
   $results-column-count: 3;
   $results-grid-column-size: 12rem;
 
@@ -63,6 +63,7 @@
       cursor: pointer;
       display: inline-block;
       font-weight: $font-weight-regular;
+      text-align: left;
 
       &:hover, &:focus {
         font-weight: $font-weight-bold;
