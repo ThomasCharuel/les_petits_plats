@@ -21,4 +21,8 @@ export default class FilterSelector {
   getItems() {
     return this.items;
   }
+
+  removeItem(itemToRemove) {
+    this.items = this.items.filter(item => item != itemToRemove);
+  }
 }

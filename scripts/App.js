@@ -78,9 +78,10 @@ class App {
       const uniqueItems = [...new Set(items)].sort();
 
       const filterSelector = new FilterSelector(filter.type, filter.name, uniqueItems);
-      const filterSelectorCard = new FilterSelectorCard(filterSelector, (item) => {
-        console.log(item)
+      const filterSelectorCard = new FilterSelectorCard(filterSelector, (that, item) => {
         this.addFilterTag(filter.type, item);
+        filterSelector.removeItem(item);
+        that.updateItemsHTML();
       });
       this.filtersSelectorsWrapper.appendChild(filterSelectorCard.getHTML());
     });

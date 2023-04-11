@@ -71,7 +71,7 @@ export default class FilterSelectorCard {
       const addFilterItem = document.createElement('li');
       addFilterItem.classList.add('filter-selector__results-section-list-item');
       addFilterItem.innerHTML = `<button class="filter-selector__results-section-result">${item}</button>`;
-      addFilterItem.addEventListener('click', () => this.addFilterTag(item));
+      addFilterItem.addEventListener('click', () => this.addFilterTag(this, item));
       itemsSection.appendChild(addFilterItem);
     });
   }
