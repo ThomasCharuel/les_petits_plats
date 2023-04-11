@@ -202,12 +202,7 @@ body {
 }
 .filter-selector__input-section {
   border-radius: 5px;
-  padding: 1.4rem 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.1rem;
+  padding-right: 2.5rem;
 }
 .filter-selector__input-section--ingredient {
   background-color: #3282F7;
@@ -218,16 +213,28 @@ body {
 .filter-selector__input-section--ustensils {
   background-color: #ED6454;
 }
+.filter-selector__open-selector-text {
+  font-weight: 700;
+  padding: 1.4rem 1rem;
+}
+.filter-selector__toggle-dropdown {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  padding: 0 1rem;
+  text-align: right;
+}
 .filter-selector__caret {
-  padding-top: 3px;
+  padding-top: 0.2rem;
   font-size: 1.4rem;
   transition: transform 0.2s ease-in-out;
 }
-.filter-selector__toggle-dropdown {
-  font-weight: 700;
-}
 .filter-selector__search-input {
-  flex: 1;
+  padding: 1.4rem 1rem;
+  width: 100%;
   display: none;
   outline: unset;
   font-weight: 700;
@@ -274,10 +281,13 @@ body {
   border-radius: 5px 5px 0 0;
   width: 40rem;
 }
+.filter-selector--active .filter-selector__toggle-dropdown {
+  width: unset;
+}
 .filter-selector--active .filter-selector__caret {
   transform: rotate(-180deg);
 }
-.filter-selector--active .filter-selector__toggle-dropdown {
+.filter-selector--active .filter-selector__open-selector-text {
   display: none;
 }
 .filter-selector--active .filter-selector__search-input {
