@@ -11,6 +11,8 @@ export default class FilterSelectorCard {
     const filterSelector = this.wrapper.querySelector('.filter-selector');
     const searchResults = this.wrapper.querySelector('.filter-selector__search-input');
 
+    this.updateItemsHTML();
+
     filterSelector.classList.add('filter-selector--active');
     dropdownButton.setAttribute('aria-expanded', 'true');
     searchResults.setAttribute('aria-hidden', 'false');
@@ -20,6 +22,10 @@ export default class FilterSelectorCard {
     const dropdownButton = this.wrapper.querySelector('.filter-selector__toggle-dropdown');
     const filterSelector = this.wrapper.querySelector('.filter-selector');
     const searchResults = this.wrapper.querySelector('.filter-selector__search-input');
+    const searchInput = this.wrapper.querySelector('.filter-selector__search-input');
+
+    searchInput.value = '';
+    this.filterSelector.setFilterText('');
 
     filterSelector.classList.remove('filter-selector--active');
     dropdownButton.setAttribute('aria-expanded', 'false');
@@ -98,8 +104,6 @@ export default class FilterSelectorCard {
         </div>
       </div>
     `;
-
-    this.updateItemsHTML();
 
     // Events handling
     this.wrapper.querySelector('.filter-selector__toggle-dropdown') // Dropdown button
