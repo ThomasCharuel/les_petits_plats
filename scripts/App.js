@@ -74,7 +74,7 @@ class App {
           items = this.recipes.map(recipe => recipe.getUstensils()).flat();
           break;
       }
-      // Deduplicate items
+      // Deduplicate and sort items
       const uniqueItems = [...new Set(items)].sort();
 
       const filterSelector = new FilterSelector(filter.type, filter.name, uniqueItems);

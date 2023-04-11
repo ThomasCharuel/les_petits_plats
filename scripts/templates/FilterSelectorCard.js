@@ -26,6 +26,7 @@ export default class FilterSelectorCard {
 
   toggleDropdown() {
     const dropdownButton = this.wrapper.querySelector('.filter-selector__toggle-dropdown');
+
     if (dropdownButton.getAttribute('aria-expanded') === 'false') {
       this.openDropdown();
       // Set focus on text input
@@ -33,8 +34,31 @@ export default class FilterSelectorCard {
     } else {
       this.closeDropdown();
       // Set focus on caret
-      this.wrapper.querySelector('.filter-selector__toggle-dropdown').focus();
+      dropdownButton.focus();
     } 
+  }
+
+  handleClickOutside(e) {
+    const withinBoundaries = e.composedPath().includes(this.wrapper);
+
+    if (!withinBoundaries) {
+      this.closeDropdown();
+    }
+  }
+
+  handleKeydown(e) {
+    const dropdownButton = this.wrapper.querySelector('.filter-selector__toggle-dropdown');
+
+    // Test if menu is showing (aria-expanded)
+    const isMenuExpanded = dropdownButton.getAttribute('aria-expanded') === 'true';
+
+    if (isMenuExpanded) {
+      if (e.key === 'Escape') {
+        this.closeDropdown();
+        // Set focus on caret
+        dropdownButton.focus();
+      }
+    }
   }
 
   getHTML() {
@@ -58,6 +82,10 @@ export default class FilterSelectorCard {
     // Events handling
     this.wrapper.querySelector('.filter-selector__toggle-dropdown') // Dropdown button
       .addEventListener('click', () => this.toggleDropdown());
+
+    document.addEventListener('click', (e) => this.handleClickOutside(e));
+
+    this.wrapper.addEventListener('keydown', (e) => this.handleKeydown(e));
 
     return this.wrapper;
   }
