@@ -1,6 +1,7 @@
 export default class FilterSelectorCard {
-  constructor(filterSelector) {
+  constructor(filterSelector, addFilterTag) {
     this.filterSelector = filterSelector;
+    this.addFilterTag = addFilterTag;
     this.wrapper = document.createElement('li');
   }
 
@@ -61,6 +62,20 @@ export default class FilterSelectorCard {
     }
   }
 
+  updateItemsHTML() {
+    const itemsSection = this.wrapper.querySelector('.filter-selector__results-section-list');
+    
+    itemsSection.replaceChildren();
+
+    this.filterSelector.getItems().forEach(item => {
+      const addFilterItem = document.createElement('li');
+      addFilterItem.classList.add('filter-selector__results-section-list-item');
+      addFilterItem.innerHTML = `<button class="filter-selector__results-section-result">${item}</button>`;
+      addFilterItem.addEventListener('click', () => this.addFilterTag(item));
+      itemsSection.appendChild(addFilterItem);
+    });
+  }
+
   getHTML() {
     this.wrapper.innerHTML = `
       <div class="filter-selector">
@@ -70,14 +85,12 @@ export default class FilterSelectorCard {
           <input class="filter-selector__search-input" type="text" placeholder="Rechercher un ${this.filterSelector.getName()}">
         </div>
         <div aria-hidden="true" class="filter-selector__results-section filter-selector__results-section--${this.filterSelector.getType()}">
-          <ul class="filter-selector__results-section-list">
-            ${this.filterSelector.getItems().map(item => `
-              <li class="filter-selector__results-section-list-item"><button class="filter-selector__results-section-result">${item}</button></li>
-            `).join('')}
-          </ul>
+          <ul class="filter-selector__results-section-list"></ul>
         </div>
       </div>
     `;
+
+    this.updateItemsHTML();
 
     // Events handling
     this.wrapper.querySelector('.filter-selector__toggle-dropdown') // Dropdown button

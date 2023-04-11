@@ -17,13 +17,7 @@ class App {
   constructor() {
     this.recipesApi = new RecipeApi();
     this.recipes = [];
-    this.filterTags = [
-      new FilterTag('Coco', FILTER.INGREDIENT.type),
-      new FilterTag('Lait de coco', FILTER.INGREDIENT.type),
-      new FilterTag('Oven', FILTER.APPLIANCE.type),
-      new FilterTag('Coco', FILTER.APPLIANCE.type),
-      new FilterTag('Pan', FILTER.USTENSILS.type),
-    ];
+    this.filterTags = [];
 
     // HTML placeholder
     this.searchBarWrapper = document.querySelector('.search-bar-placeholder');
@@ -57,6 +51,12 @@ class App {
     });
   }
 
+  addFilterTag(filterType, item) {
+    const filterTag = new FilterTag(item, filterType);
+    this.filterTags.push(filterTag);
+    this.renderFilterTags();
+  }
+
   renderFiltersSelectors() {
     this.filtersSelectorsWrapper.replaceChildren();
 
@@ -78,7 +78,10 @@ class App {
       const uniqueItems = [...new Set(items)].sort();
 
       const filterSelector = new FilterSelector(filter.type, filter.name, uniqueItems);
-      const filterSelectorCard = new FilterSelectorCard(filterSelector);
+      const filterSelectorCard = new FilterSelectorCard(filterSelector, (item) => {
+        console.log(item)
+        this.addFilterTag(filter.type, item);
+      });
       this.filtersSelectorsWrapper.appendChild(filterSelectorCard.getHTML());
     });
   }
