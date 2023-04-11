@@ -28,7 +28,7 @@ class App {
     // HTML placeholder
     this.searchBarWrapper = document.querySelector('.search-bar-placeholder');
     this.filtersTagsWrapper = document.querySelector('.filters-tags-section');
-    this.filtersSelectorsWrapper = document.querySelector('.filters-section');
+    this.filtersSelectorsWrapper = document.querySelector('.filters-selectors-section');
     this.recipesWrapper = document.querySelector('.recipes-section');
     this.noRecipeMessageWrapper = document.querySelector('.no-recipes-found-message');
   }
@@ -70,7 +70,7 @@ class App {
           break;
       }
       // Deduplicate items
-      const uniqueItems = [...new Set(items)];
+      const uniqueItems = [...new Set(items)].sort();
 
       const filterSelector = new FilterSelector(filter.type, filter.name, uniqueItems);
       const filterSelectorCard = new FilterSelectorCard(filterSelector);

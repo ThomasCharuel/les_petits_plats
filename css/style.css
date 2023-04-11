@@ -195,12 +195,12 @@ body {
   font-size: 1.8rem;
 }
 
-.filter {
+.filter-selector {
   position: relative;
   color: #FFFFFF;
   font-size: 1.1rem;
 }
-.filter__input-section {
+.filter-selector__input-section {
   border-radius: 5px;
   padding: 1.4rem 1rem;
   cursor: pointer;
@@ -209,81 +209,81 @@ body {
   justify-content: space-between;
   gap: 1.1rem;
 }
-.filter__input-section--ingredient {
+.filter-selector__input-section--ingredient {
   background-color: #3282F7;
 }
-.filter__input-section--appliance {
+.filter-selector__input-section--appliance {
   background-color: #68D9A4;
 }
-.filter__input-section--ustensils {
+.filter-selector__input-section--ustensils {
   background-color: #ED6454;
 }
-.filter__caret {
+.filter-selector__caret {
   padding-top: 3px;
   font-size: 1.4rem;
   transition: transform 0.2s ease-in-out;
 }
-.filter__toggle-dropdown {
+.filter-selector__toggle-dropdown {
   font-weight: 700;
 }
-.filter__search-input {
+.filter-selector__search-input {
   flex: 1;
   display: none;
   outline: unset;
   font-weight: 700;
 }
-.filter__search-input::placeholder {
+.filter-selector__search-input::placeholder {
   color: unset;
   opacity: 0.5;
 }
-.filter__results-section {
+.filter-selector__results-section {
   display: none;
   position: absolute;
   z-index: 200;
   border-radius: 0 0 5px 5px;
   width: 100%;
 }
-.filter__results-section--ingredient {
+.filter-selector__results-section--ingredient {
   background-color: #3282F7;
 }
-.filter__results-section--appliance {
+.filter-selector__results-section--appliance {
   background-color: #68D9A4;
 }
-.filter__results-section--ustensils {
+.filter-selector__results-section--ustensils {
   background-color: #ED6454;
 }
-.filter__results-section-list {
+.filter-selector__results-section-list {
   padding: 0 1rem 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.4rem 2rem;
 }
-.filter__results-section-list-item {
+.filter-selector__results-section-list-item {
   display: inline-block;
 }
-.filter__results-section-result {
+.filter-selector__results-section-result {
   cursor: pointer;
   display: inline-block;
   font-weight: 400;
   text-align: left;
 }
-.filter__results-section-result:hover, .filter__results-section-result:focus {
+.filter-selector__results-section-result:hover, .filter-selector__results-section-result:focus {
   font-weight: 700;
 }
-.filter--active .filter__input-section {
+.filter-selector--active .filter-selector__input-section {
   border-radius: 5px 5px 0 0;
   width: 40rem;
 }
-.filter--active .filter__caret {
+.filter-selector--active .filter-selector__caret {
   transform: rotate(-180deg);
 }
-.filter--active .filter__toggle-dropdown {
+.filter-selector--active .filter-selector__toggle-dropdown {
   display: none;
 }
-.filter--active .filter__search-input {
+.filter-selector--active .filter-selector__search-input {
   display: block;
 }
-.filter--active .filter__results-section {
+.filter-selector--active .filter-selector__results-section {
   display: block;
 }
 
@@ -315,7 +315,7 @@ main {
   gap: 1rem;
 }
 
-.filters-section {
+.filters-selectors-section {
   margin: 1rem 0;
   display: flex;
   flex-wrap: wrap;
