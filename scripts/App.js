@@ -91,11 +91,15 @@ class App {
     this.filtersSelectorsWrapper.replaceChildren();
     
     this.filterSelectors.forEach(filterSelector => {
-      const filterSelectorCard = new FilterSelectorCard(filterSelector, (that, item) => {
-        this.addFilterTag(filterSelector.getType(), item);
-        filterSelector.removeItem(item);
-        that.updateItemsHTML();
-      });
+      const filterSelectorCard = new FilterSelectorCard(filterSelector
+        , (that, item) => {
+          this.addFilterTag(filterSelector.getType(), item);
+          filterSelector.removeItem(item);
+          that.updateItemsHTML();
+        }, (that, searchText) => {
+          filterSelector.setFilterText(searchText);
+          that.updateItemsHTML();
+        });
       this.filtersSelectorsWrapper.appendChild(filterSelectorCard.getHTML());
     })
   }

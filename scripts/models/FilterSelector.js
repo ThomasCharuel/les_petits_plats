@@ -6,6 +6,8 @@ export default class FilterSelector {
     this.items = items;
     // Deduplicate and sort items
     this.prepareItems();
+
+    this.filterText = '';
   }
 
   getType() {
@@ -34,7 +36,18 @@ export default class FilterSelector {
     this.items = this.items.filter(item => item != itemToRemove);
   }
 
+  setFilterText(filterText) {
+    this.filterText = filterText.toUpperCase();
+  }
+
+  getFilteredItems() {
+    return this.items.filter(item => item.includes(this.filterText));
+  }
+
   prepareItems() {
-    this.items = [...new Set(this.items)].sort();
+    this.items = [
+      ...new Set( // Deduplicate
+        this.items.map(item => item.toUpperCase()))
+    ].sort();
   }
 }

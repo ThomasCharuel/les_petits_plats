@@ -1,7 +1,8 @@
 export default class FilterSelectorCard {
-  constructor(filterSelector, addFilterTag) {
+  constructor(filterSelector, addFilterTag, filterItems) {
     this.filterSelector = filterSelector;
     this.addFilterTag = addFilterTag;
+    this.filterItems = filterItems;
     this.wrapper = document.createElement('li');
   }
 
@@ -40,6 +41,7 @@ export default class FilterSelectorCard {
   }
 
   handleClickOutside(e) {
+    // Test if click outside using event composed path
     const withinBoundaries = e.composedPath().includes(this.wrapper);
 
     if (!withinBoundaries) {
@@ -67,13 +69,20 @@ export default class FilterSelectorCard {
     
     itemsSection.replaceChildren();
 
-    this.filterSelector.getItems().forEach(item => {
+    this.filterSelector.getFilteredItems().forEach(item => {
       const addFilterItem = document.createElement('li');
       addFilterItem.classList.add('filter-selector__results-section-list-item');
-      addFilterItem.innerHTML = `<button class="filter-selector__results-section-result">${item}</button>`;
+
+      const capitalizedItem = `${item[0]}${item.slice(1).toLowerCase()}`;
+
+      addFilterItem.innerHTML = `<button class="filter-selector__results-section-result">${capitalizedItem}</button>`;
       addFilterItem.addEventListener('click', () => this.addFilterTag(this, item));
       itemsSection.appendChild(addFilterItem);
     });
+  }
+
+  handleSearchChange(e) {
+    this.filterItems(this, e.target.value);
   }
 
   getHTML() {
@@ -99,6 +108,9 @@ export default class FilterSelectorCard {
     document.addEventListener('click', (e) => this.handleClickOutside(e));
 
     this.wrapper.addEventListener('keydown', (e) => this.handleKeydown(e));
+
+    this.wrapper.querySelector('.filter-selector__search-input') // Update search
+      .addEventListener('input', (e) => this.handleSearchChange(e));
 
     return this.wrapper;
   }

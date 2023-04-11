@@ -6,11 +6,13 @@ export default class FilterTagCard {
   }
 
   getHTML() {
+    const capitalizedName = `${this.filter.getName()[0]}${this.filter.getName().slice(1).toLowerCase()}`;
+    
     this.wrapper.innerHTML = `
       <button 
         class="filter-tag filter-tag--${this.filter.getType()}"
       >
-        ${this.filter.getName()}<i class="fa-regular fa-circle-xmark"></i>
+        ${capitalizedName}<i class="fa-regular fa-circle-xmark"></i>
       </button>
     `;
 
