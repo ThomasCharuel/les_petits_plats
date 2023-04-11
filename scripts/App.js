@@ -18,6 +18,7 @@ class App {
     this.recipesApi = new RecipeApi();
     this.recipes = [];
     this.filterTags = [];
+    this.filterSelectors = [];
 
     // HTML placeholder
     this.searchBarWrapper = document.querySelector('.search-bar-placeholder');
@@ -38,8 +39,15 @@ class App {
   }
 
   removeFilterTag(filterTag) {
+    // Remove filter tag
     this.filterTags = this.filterTags.filter(x => x != filterTag);
+    // Add back filter to filter selector
+    const filterSelector = this.filterSelectors.find(
+      filterSelector => filterSelector.getType() === filterTag.getType());
+    filterSelector.addItem(filterTag.getName());
+
     this.renderFilterTags();
+    this.renderFiltersSelectors();
   }
 
   renderFilterTags() {
@@ -57,9 +65,7 @@ class App {
     this.renderFilterTags();
   }
 
-  renderFiltersSelectors() {
-    this.filtersSelectorsWrapper.replaceChildren();
-
+  setFiltersSelectors() {
     Object.values(FILTER).forEach((filter) => {
       let items;
 
@@ -74,17 +80,24 @@ class App {
           items = this.recipes.map(recipe => recipe.getUstensils()).flat();
           break;
       }
-      // Deduplicate and sort items
-      const uniqueItems = [...new Set(items)].sort();
 
-      const filterSelector = new FilterSelector(filter.type, filter.name, uniqueItems);
+      this.filterSelectors.push(
+        new FilterSelector(filter.type, filter.name, items)
+      );
+    });
+  }
+
+  renderFiltersSelectors() {
+    this.filtersSelectorsWrapper.replaceChildren();
+    
+    this.filterSelectors.forEach(filterSelector => {
       const filterSelectorCard = new FilterSelectorCard(filterSelector, (that, item) => {
-        this.addFilterTag(filter.type, item);
+        this.addFilterTag(filterSelector.getType(), item);
         filterSelector.removeItem(item);
         that.updateItemsHTML();
       });
       this.filtersSelectorsWrapper.appendChild(filterSelectorCard.getHTML());
-    });
+    })
   }
 
   renderRecipes() {
@@ -105,8 +118,10 @@ class App {
     await this.fetchRecipes();
 
     this.renderSearchBar();
-    this.renderFilterTags();
+
+    this.setFiltersSelectors();
     this.renderFiltersSelectors();
+
     this.renderRecipes();
   }
 }

@@ -2,7 +2,10 @@ export default class FilterSelector {
   constructor(type, name, items) {
     this.type = type;
     this.name = name;
+
     this.items = items;
+    // Deduplicate and sort items
+    this.prepareItems();
   }
 
   getType() {
@@ -22,7 +25,16 @@ export default class FilterSelector {
     return this.items;
   }
 
+  addItem(item) {
+    this.items.push(item);
+    this.prepareItems();
+  }
+
   removeItem(itemToRemove) {
     this.items = this.items.filter(item => item != itemToRemove);
+  }
+
+  prepareItems() {
+    this.items = [...new Set(this.items)].sort();
   }
 }
