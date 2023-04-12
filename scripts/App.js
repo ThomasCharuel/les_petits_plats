@@ -6,17 +6,13 @@ import RecipeCard from './templates/RecipeCard.js';
 import FilterTagCard from './templates/FilterTagCard.js';
 import SearchBarCard from './templates/SearchBar.js';
 import FilterSelectorCard from './templates/FilterSelectorCard.js';
-
-const FILTER = {
-  INGREDIENT: { type: 'ingredient', name: 'ingrédient' },
-  APPLIANCE: { type: 'appliance', name: 'appareil' },
-  USTENSILS: { type: 'ustensils', name: 'ustensile' },
-};
+import { FILTER } from './utils/const.js';
 
 class App {
   constructor() {
     this.recipesApi = new RecipeApi();
-    this.recipes = [];
+    this.recipesUnfiltered = [];
+    this.recipes = this.recipesUnfiltered;
     this.searchText = '';
     this.filterTags = [];
     this.filterSelectors = [];
@@ -29,19 +25,32 @@ class App {
     this.noRecipeMessageWrapper = document.querySelector('.no-recipes-found-message');
   }
 
+  applyFilterOnRecipes() {
+    // Filter recipes based on search text and filter tags
+    this.recipes = this.recipesUnfiltered;
+
+    // Update filter selectors
+    this.filterSelectors.forEach(
+      filterSelector => filterSelector.setRecipes(this.recipes));
+
+    // Update view
+    this.renderRecipes();
+  }
+
   async fetchRecipes() {
     const recipesData = await this.recipesApi.get();
-    this.recipes = recipesData.map(recipe => new Recipe(recipe));
+    this.recipesUnfiltered = recipesData.map(recipe => new Recipe(recipe));
+    this.recipes = this.recipesUnfiltered;
   }
 
   updateSearchText(searchText) {
     this.searchText = searchText;
-    console.log(this.searchText)
     // Run search
+    this.applyFilterOnRecipes();
   }
 
   renderSearchBar() {
-    const searchBarCard = new SearchBarCard(this.updateSearchText);
+    const searchBarCard = new SearchBarCard((searchText) => this.updateSearchText(searchText));
     this.searchBarWrapper.appendChild(searchBarCard.getHTML());
   }
 
@@ -51,12 +60,13 @@ class App {
     // Add back filter to filter selector
     const filterSelector = this.filterSelectors.find(
       filterSelector => filterSelector.getType() === filterTag.getType());
-    filterSelector.addItem(filterTag.getName());
+    filterSelector.unpickFilterTag(filterTag.getName());
 
     this.renderFilterTags();
     this.renderFiltersSelectors();
 
     // Run search
+    this.applyFilterOnRecipes();
   }
 
   renderFilterTags() {
@@ -72,27 +82,15 @@ class App {
     const filterTag = new FilterTag(item, filterType);
     this.filterTags.push(filterTag);
     this.renderFilterTags();
+    
     // Run search
+    this.applyFilterOnRecipes();
   }
 
   setFiltersSelectors() {
     Object.values(FILTER).forEach((filter) => {
-      let items;
-
-      switch (filter.type)  {
-        case FILTER.INGREDIENT.type:
-          items = this.recipes.map(recipe => recipe.getIngredients().map(ingredient => ingredient.ingredient)).flat();
-          break;
-        case FILTER.APPLIANCE.type:
-          items = this.recipes.map(recipe => recipe.getAppliance());
-          break;
-        case FILTER.USTENSILS.type:
-          items = this.recipes.map(recipe => recipe.getUstensils()).flat();
-          break;
-      }
-
       this.filterSelectors.push(
-        new FilterSelector(filter.type, filter.name, items)
+        new FilterSelector(filter.type, filter.name, this.recipes)
       );
     });
   }
@@ -102,9 +100,9 @@ class App {
     
     this.filterSelectors.forEach(filterSelector => {
       const filterSelectorCard = new FilterSelectorCard(filterSelector
-        , (that, item) => {
-          this.addFilterTag(filterSelector.getType(), item);
-          filterSelector.removeItem(item);
+        , (that, filterTagName) => {
+          this.addFilterTag(filterSelector.getType(), filterTagName);
+          filterSelector.pickFilterTag(filterTagName);
           that.updateItemsHTML();
         }, (that, searchText) => {
           filterSelector.setFilterText(searchText);

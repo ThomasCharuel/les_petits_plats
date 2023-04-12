@@ -75,7 +75,7 @@ export default class FilterSelectorCard {
     
     itemsSection.replaceChildren();
 
-    this.filterSelector.getFilteredItems().forEach(item => {
+    this.filterSelector.getFilterTags().forEach(item => {
       const addFilterItem = document.createElement('li');
       addFilterItem.classList.add('filter-selector__results-section-list-item');
 

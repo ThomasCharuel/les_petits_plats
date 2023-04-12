@@ -1,13 +1,12 @@
+import { FILTER } from "../utils/const.js";
+
 export default class FilterSelector {
-  constructor(type, name, items) {
+  constructor(type, name, recipes) {
     this.type = type;
     this.name = name;
-
-    this.items = items;
-    // Deduplicate and sort items
-    this.prepareItems();
-
+    this.recipes = recipes;
     this.filterText = '';
+    this.pickedFilterTags = [];
   }
 
   getType() {
@@ -23,37 +22,60 @@ export default class FilterSelector {
     return `${firstCharacter}${this.name.slice(1)}s`;
   }
 
-  getItems() {
-    return this.items;
+  setRecipes(recipes) {
+    this.recipes = recipes;
   }
 
-  addItem(item) {
-    this.items.push(item);
-    this.prepareItems();
+  pickFilterTag(filterTag) {
+    this.pickedFilterTags.push(filterTag);
   }
 
-  removeItem(itemToRemove) {
-    this.items = this.items.filter(item => item != itemToRemove);
+  unpickFilterTag(filterTagToUnpick) {
+    this.pickedFilterTags = this.pickedFilterTags.filter(
+      filterTag => filterTag != filterTagToUnpick);
   }
 
   setFilterText(filterText) {
     this.filterText = filterText;
   }
 
-  getFilteredItems() {
+  getFilterTagsUnfiltered() {
+    let filterTags = [];
+
+    // Get available tags based on filtered recipes
+    switch (this.getType())  {
+      case FILTER.INGREDIENT.type:
+        filterTags = this.recipes.map(recipe => recipe.getIngredients().map(ingredient => ingredient.ingredient)).flat();
+        break;
+      case FILTER.APPLIANCE.type:
+        filterTags = this.recipes.map(recipe => recipe.getAppliance());
+        break;
+      case FILTER.USTENSILS.type:
+        filterTags = this.recipes.map(recipe => recipe.getUstensils()).flat();
+        break;
+    }
+
+    // Prepare filter tags
+    const filterTagsPrepared = [
+      ...new Set( // Deduplicate
+        filterTags.map(filterTag => filterTag.toUpperCase()))
+    ].sort();
+
+    return filterTagsPrepared;
+  }
+
+  getFilterTags() {
     // We check if item contains the words in filterText
     const filterWords = this.filterText.toUpperCase().split(' ');
 
-    return this.items.filter(item =>
-      filterWords.map(filterWord => item.includes(filterWord))
+    return this.getFilterTagsUnfiltered()
+      // Remove already picked filter tags
+      .filter(filterTag => !this.pickedFilterTags.includes(filterTag))
+
+      // Filter filterTags based on search text
+      .filter(filterTag => filterWords
+        .map(filterWord => filterTag.includes(filterWord))
         .reduce((a, b) => a && b) // Every word must be included
     );
-  }
-
-  prepareItems() {
-    this.items = [
-      ...new Set( // Deduplicate
-        this.items.map(item => item.toUpperCase()))
-    ].sort();
   }
 }
