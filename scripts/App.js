@@ -17,6 +17,7 @@ class App {
   constructor() {
     this.recipesApi = new RecipeApi();
     this.recipes = [];
+    this.searchText = '';
     this.filterTags = [];
     this.filterSelectors = [];
 
@@ -33,8 +34,14 @@ class App {
     this.recipes = recipesData.map(recipe => new Recipe(recipe));
   }
 
+  updateSearchText(searchText) {
+    this.searchText = searchText;
+    console.log(this.searchText)
+    // Run search
+  }
+
   renderSearchBar() {
-    const searchBarCard = new SearchBarCard();
+    const searchBarCard = new SearchBarCard(this.updateSearchText);
     this.searchBarWrapper.appendChild(searchBarCard.getHTML());
   }
 
@@ -48,6 +55,8 @@ class App {
 
     this.renderFilterTags();
     this.renderFiltersSelectors();
+
+    // Run search
   }
 
   renderFilterTags() {
@@ -63,6 +72,7 @@ class App {
     const filterTag = new FilterTag(item, filterType);
     this.filterTags.push(filterTag);
     this.renderFilterTags();
+    // Run search
   }
 
   setFiltersSelectors() {
