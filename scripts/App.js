@@ -27,14 +27,15 @@ class App {
   }
 
   applyFilterOnRecipes() {
+    // Search is based on search text and filter tags
+    const searchCriterias = [
+      new TextSearch(this.searchText), 
+      ...this.filterTags.map(tag => new TagSearch(tag))];
+
     // Filter recipes based on search text and filter tags
     this.recipes = this.recipesUnfiltered.filter(
-      recipe => [
-        // Search criterias
-        new TextSearch(this.searchText), ...this.filterTags.map(tag => new TagSearch(tag))
-      ]
-        // Check that every search criteria is valided
-        .every(searchCriteria => searchCriteria.isFound(recipe))
+      // Check that every search criteria is valided
+      recipe => searchCriterias.every(searchCriteria => searchCriteria.isFound(recipe))
     );
 
     // Update filter selectors
