@@ -16,6 +16,10 @@ export default class Recipe {
     return this.appliance;
   }
 
+  getApplianceAsSearchString() {
+    return this.getAppliance().toUpperCase();
+  }
+
   getDescription() {
     return this.description;
   }
@@ -28,7 +32,24 @@ export default class Recipe {
     return this.ustensils;
   }
 
+  getUstensilsAsSearchString() {
+    return this.getUstensils().join(' ').toUpperCase();
+  }
+
   getIngredients() {
     return this.ingredients;
+  }
+
+  getIngredientsAsSearchString() {
+    return this.getIngredients()
+      .map(ingredient => ingredient.ingredient)
+      .join(' ')
+      .toUpperCase();
+  }
+
+  getAsSearchString() {
+    // Search in description, title and ingredients
+    return `${this.getDescription()} ${this.getName()} ${this.getIngredientsAsSearchString()}`
+      .toUpperCase();
   }
 }

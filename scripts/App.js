@@ -7,6 +7,7 @@ import FilterTagCard from './templates/FilterTagCard.js';
 import SearchBarCard from './templates/SearchBar.js';
 import FilterSelectorCard from './templates/FilterSelectorCard.js';
 import { FILTER } from './utils/const.js';
+import { TextSearch, TagSearch } from './search/Search.js';
 
 class App {
   constructor() {
@@ -27,7 +28,31 @@ class App {
 
   applyFilterOnRecipes() {
     // Filter recipes based on search text and filter tags
-    this.recipes = this.recipesUnfiltered;
+    this.recipes = [];
+
+    // Define search criterias: text + tags
+    let searchCriterias = [new TextSearch(this.searchText)];
+
+    // Add tags to search criterias
+    for (let i = 0; i < this.filterTags.length; i++) {
+      searchCriterias.push(new TagSearch(this.filterTags[i]));
+    }
+
+    // Loop through recipe to find if every search criterias is checked
+    for (let i = 0; i < this.recipesUnfiltered.length; i++) {
+      let isRecipeFound = true;
+      for (let y = 0; y < searchCriterias.length; y++) {
+        // Check if criteria is matched
+        if (!searchCriterias[y].isFound(this.recipesUnfiltered[i])) {
+          isRecipeFound = false;
+          break; // No need to continue if one criteria is not OK
+        }
+      }
+      // Recipes validated are added
+      if (isRecipeFound) {
+        this.recipes.push(this.recipesUnfiltered[i]);
+      }
+    }
 
     // Update filter selectors
     this.filterSelectors.forEach(
