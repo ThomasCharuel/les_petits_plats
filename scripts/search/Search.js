@@ -18,18 +18,11 @@ export class TextSearch extends Search {
       return true;
     }
 
-    // We search in description, title and ingredients
-    const getSearchString = (recipe) => (
-      `${recipe.getDescription()} ${recipe.getName()} 
-       ${recipe.getIngredients().map(ingredient => ingredient.ingredient).join(' ')}`
-      .toUpperCase()
-    );
-
     // Split Search text in words
     const searchWords = this.searchText.toUpperCase().split(' ');
 
-    // Apply textual search
-    return searchWords.every(word => getSearchString(recipe).includes(word));
+    // Apply textual search. Every words in search must match the recipe
+    return searchWords.every(word => recipe.getAsSearchString().includes(word));
   }
 }
 
@@ -40,17 +33,23 @@ export class TagSearch extends Search {
   }
 
   isFoundInRecipe(recipe) {
+    let searchString;
+
+    // Define search string based on filter type
     switch (this.searchTag.getType()) {
       case FILTER.INGREDIENT.type:
-        return recipe.getIngredients()
-          .map(ingredient => ingredient.ingredient.toUpperCase())
-          .includes(this.searchTag.getName());
+        searchString = recipe.getIngredientsAsSearchString();
+        break;
       case FILTER.APPLIANCE.type:
-        return recipe.getAppliance().toUpperCase === this.searchTag.getName();
+        searchString = recipe.getApplianceAsSearchString();
+        break;
       case FILTER.USTENSILS.type:
-        return recipe.getUstensils()
-          .map(u => u.toUpperCase())
-          .includes(this.searchTag.getName());
+        searchString = recipe.getUstensilsAsSearchString();
+        break;
+      default:
+        throw new Error(`Unknown filter tag: ${this.searchTag.getType()}`);
     }
+    // Check if search tag is included in the search string
+    return searchString.includes(this.searchTag.getName());
   }
 }
